@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Ícone - Lembrete de Água</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        h1 {
+            margin-bottom: 30px;
+            text-align: center;
+            color: #00C8FF;
+        }
+        
+        .icon-container {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .icon p {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #555;
+        }
+        
+        img {
+            display: block;
+            margin-bottom: 10px;
+        }
+        
+        .download-container {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 600px;
+        }
+        
+        h2 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #6A11CB;
+        }
+        
+        .download-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #00C8FF, #6A11CB);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 10px;
+            box-shadow: 0 4px 8px rgba(0, 200, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 200, 255, 0.4);
+        }
+        
+        .instructions {
+            margin-top: 30px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 600px;
+        }
+        
+        .instructions ol {
+            padding-left: 20px;
+        }
+        
+        .instructions li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ícones para "ÁGUA É MAIS BARATO QUE UM RIM"</h1>
+    
+    <div class="icon-container">
+        <div class="icon">
+            <img id="preview-small" width="192" height="192" alt="Ícone 192x192">
+            <p>icon-192x192.png</p>
+        </div>
+        
+        <div class="icon">
+            <img id="preview-large" width="200" height="200" alt="Ícone 512x512 (visualização reduzida)">
+            <p>icon-512x512.png (visualização reduzida)</p>
+        </div>
+    </div>
+    
+    <div class="download-container">
+        <h2>Baixar Ícones</h2>
+        <div id="download-buttons">
+            <!-- Os botões de download serão inseridos aqui via JavaScript -->
+        </div>
+    </div>
+    
+    <div class="instructions">
+        <h2>Como usar estes ícones:</h2>
+        <ol>
+            <li>Clique nos botões acima para baixar os arquivos de ícone</li>
+            <li>Salve os arquivos como <strong>icon-192x192.png</strong> e <strong>icon-512x512.png</strong></li>
+            <li>Coloque os dois arquivos de ícone na mesma pasta do seu projeto</li>
+            <li>Certifique-se de que os nomes dos arquivos correspondam exatamente aos especificados no manifest.json</li>
+            <li>Após adicionar os ícones, seu aplicativo estará pronto para ser instalado como PWA!</li>
+        </ol>
+    </div>
+    
+    <script src="icon-generator.js"></script>
+</body>
+</html> 

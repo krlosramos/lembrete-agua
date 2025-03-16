@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ÁGUA É MAIS BARATO QUE UM RIM | Lembrete de Água</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Links PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#00C8FF">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Lembrete de Água">
+    <link rel="apple-touch-icon" href="icon-192x192.png">
+</head>
+<body>
+    <header>
+        <h1>ÁGUA É MAIS BARATO QUE UM RIM</h1>
+        <p class="subtitle">Mantenha-se hidratado com tecnologia avançada</p>
+        
+        <!-- Informações de data e temperatura -->
+        <div class="info-container">
+            <div class="date-info">
+                <i class="fas fa-calendar-alt"></i>
+                <span id="currentDate">Carregando data...</span>
+            </div>
+            <div class="temp-info">
+                <i class="fas fa-temperature-high"></i>
+                <span id="currentTemp">Carregando temperatura...</span>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <!-- Abas de navegação -->
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="main-tab">Principal</button>
+            <button class="tab-btn" data-tab="history-tab">Histórico</button>
+        </div>
+        
+        <!-- Conteúdo da aba principal -->
+        <div class="tab-content active" id="main-tab">
+            <!-- Seção de Consumo de Água -->
+            <div class="section water-consumption">
+                <h2 class="section-title">Consumo de Água</h2>
+                
+                <div class="water-info">
+                    <div class="water-amount" id="waterAmount">0<span class="water-unit">ml</span></div>
+                    <div class="target-amount">Meta: <span id="targetAmount">2000</span>ml</div>
+                </div>
+                
+                <div class="progress-container">
+                    <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+                </div>
+                
+                <div class="water-actions">
+                    <button class="add-water" id="addWater">
+                        <i class="fas fa-tint"></i> Adicionar 250ml
+                    </button>
+                    <button class="edit-btn" id="editAmount">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="reset-btn" id="resetBtn">
+                        <i class="fas fa-redo"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Seção de Lembretes -->
+            <div class="section reminder">
+                <h2 class="section-title">Lembretes</h2>
+                
+                <div class="reminder-status">
+                    <div class="status-indicator" id="reminderIndicator"></div>
+                    <span id="reminderStatus">Lembretes desativados</span>
+                </div>
+                
+                <div class="reminder-actions">
+                    <button id="toggleReminder">
+                        <i class="fas fa-bell"></i> Ativar Lembretes
+                    </button>
+                    <button id="testSoundBtn">
+                        <i class="fas fa-volume-up"></i> Testar Som
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Seção de Configurações -->
+            <div class="section settings">
+                <h2 class="section-title">Configurações</h2>
+                
+                <div class="setting-item">
+                    <div class="setting-label">Meta Diária (ml):</div>
+                    <input type="number" id="targetWater" min="500" max="5000" step="100" value="2000">
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-label">Intervalo (minutos):</div>
+                    <input type="number" id="reminderInterval" min="5" max="240" step="5" value="30">
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-label">Som do Lembrete:</div>
+                    <select id="soundOption">
+                        <option value="none">Sem som</option>
+                        <option value="drop" selected>Gota d'água</option>
+                        <option value="bell">Campainha</option>
+                        <option value="chime">Sino</option>
+                        <option value="tempoPerdido">Tempo Perdido</option>
+                    </select>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-label">Volume:</div>
+                    <div style="display: flex; align-items: center; width: 150px;">
+                        <input type="range" id="volumeSlider" min="0" max="100" value="100">
+                        <span id="volumeValue" class="volume-level">100%</span>
+                    </div>
+                </div>
+                
+                <div class="setting-actions">
+                    <button id="saveSettings">
+                        <i class="fas fa-save"></i> Salvar Alterações
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Conteúdo da aba de histórico -->
+        <div class="tab-content" id="history-tab">
+            <div class="section history">
+                <h2 class="section-title">Histórico de Consumo</h2>
+                
+                <div class="history-filters">
+                    <div class="filter-item">
+                        <label>Filtrar por data:</label>
+                        <input type="date" id="historyDateFilter">
+                    </div>
+                    <button id="clearFilters">Limpar Filtros</button>
+                </div>
+                
+                <div class="history-list-container">
+                    <table class="history-table">
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Hora</th>
+                                <th>Quantidade</th>
+                                <th>Temperatura</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historyList">
+                            <!-- Itens de histórico serão inseridos aqui via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="history-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Total Hoje:</span>
+                        <span class="stat-value" id="todayTotal">0ml</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Média diária:</span>
+                        <span class="stat-value" id="dailyAverage">0ml</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal para editar quantidade -->
+    <div class="modal" id="editModal">
+        <div class="modal-content">
+            <h3 class="modal-title">Editar Consumo de Água</h3>
+            <button class="close-modal" id="closeModal">&times;</button>
+            
+            <div class="modal-form">
+                <div class="setting-item">
+                    <div class="setting-label">Quantidade atual (ml):</div>
+                    <input type="number" id="customAmount" min="0" max="10000" step="50" value="0">
+                </div>
+                
+                <div class="modal-actions">
+                    <button id="cancelEdit">Cancelar</button>
+                    <button id="saveAmount">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Elementos de áudio -->
+    <audio id="dropSound" preload="auto">
+        <source src="https://soundbible.com/grab.php?id=2195&type=mp3" type="audio/mpeg">
+        <source src="data:audio/wav;base64,UklGRigBAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhHAEAAJDQ8P+w0CD/QHBw/9CgoP9wcHD/oFBQ/1BQUP+QMGD/YGBA/zAgIP9QUFD/UFAw/zAwMP9AQED/QEAg/yAgIP8wMDD/MDAg/yAgIP8gIBD/EBAg/zAgEP8QEBD/EBAQ/xAQEP8QEBD/EBAQ/xAQEP8QEBD/EBAQ/xAQEP8QEBD/EBAQ/0BQUP+wuMj/UGhw/xAgIP8QGBj/ECgo/3B4eP+wuLj/YHBw/zBAQP8wODj/MEBA/0BQUP9QaGj/cIiI/3CIiP9QaGj/IDg4/yA4OP8wSEj/QFhY/0BgYP9AYGj/gMDI/5DQ4P8=" type="audio/wav">
+    </audio>
+    
+    <audio id="bellSound" preload="auto">
+        <source src="https://soundbible.com/grab.php?id=1662&type=mp3" type="audio/mpeg">
+        <source src="data:audio/wav;base64,UklGRiQEAABXQVZFZm10IBAAAAABAAEAESsAABErAAABAAgAZGF0YQAEAACBgIF/gn6Df4GBgYKDg4SDg4GBgH9+fX19fXx9fH18fX19fn5/f4CAgICAf35+fXx8e3t7e3t8e3x8fX5+f4CAgIGBgYGAgH9+fXx7enl4eHh3d3h5ent8fX9/gIGCg4SEhYWEg4KAfn17eXd1c3JxcHBvcHFydHZ4e32AgoWIi4yOj5CRkZCPjYqHg4B8d3RwbGhmY2FfXl5fYGJmam91eoCHjZOYnaGlp6qrrKyqqKSfmZONhoB5c2xnYl5aV1VUVFVWWF1iaG50e4SLkpienaCipKWmpqWjoZ6al5KOioWAe3ZwamVgXFlWVFNTVFVXW19jZ2xweHyBhIeJi42OkJGRkZCPjYuJh4WCgH17eHVzcXBvbm5vcHFydHV3eXt+gIKEhYeIiYqLi4uLioqJiIeGhYSCgX9+fHp5d3Z1dHNycXFxcXJzdHV2d3l6fH1+f4CBgoOEhYWGhoaHh4eGhoaFhYSEg4KBgIB/fn18e3p5eHd3dnZ2dnd3eHl6e3x9fn+AgYGCg4SEhYWFhoaGhoaGhoaGhYWFhISDgoKBgIB/fn59fHt6enl5eHh4eHh4eXl6ent8fH1+fn9/gICBgYGCgoODg4ODg4ODg4OCgoKCgYGBgIB/f35+fX18fHt7enp6enp6enp6ent7e3x8fX19fn5/f3+AgICAgICBgYGBgYGBgYGBgYGBgYCAgICAf39/f35+fn19fX18fHx8fHx8fHx8fHx8fH19fX1+fn5+fn9/f39/f39/f39/f4CAgICAgICAgICAgICAf39/f39/f39/f39+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn9/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f35+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn9/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/fw==" type="audio/wav">
+    </audio>
+    
+    <audio id="chimeSound" preload="auto">
+        <source src="https://soundbible.com/grab.php?id=2062&type=mp3" type="audio/mpeg">
+        <source src="data:audio/wav;base64,UklGRigAAABXQVZFZm10IBAAAAABAAEAESsAABErAAABAAgAZGF0YQQAAAAAAAAA" type="audio/wav">
+    </audio>
+    
+    <audio id="tempoPerdidoSound" preload="auto">
+        <source src="12 Tempo Perdido.mp3" type="audio/mpeg">
+    </audio>
+    
+    <script src="script.js"></script>
+    
+    <!-- Registrar service worker para PWA -->
+    <script>
+        // Registrar o service worker para permitir o uso offline
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('service-worker.js')
+                    .then(function(registration) {
+                        console.log('Service Worker registrado com sucesso:', registration.scope);
+                    })
+                    .catch(function(error) {
+                        console.log('Falha ao registrar o Service Worker:', error);
+                    });
+            });
+        }
+        
+        // Exibir botão "Adicionar à Tela Inicial"
+        let deferredPrompt;
+        const addBtn = document.createElement('button');
+        addBtn.style.display = 'none';
+        
+        window.addEventListener('beforeinstallprompt', (e) => {
+            // Impede que o mini-infobar apareça no celular
+            e.preventDefault();
+            // Armazena o evento para que possa ser acionado mais tarde
+            deferredPrompt = e;
+            // Cria um banner flutuante para indicar a possibilidade de instalação
+            const installBanner = document.createElement('div');
+            installBanner.innerHTML = `
+                <div style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); 
+                           background: linear-gradient(135deg, rgba(0, 200, 255, 0.9), rgba(106, 17, 203, 0.9)); 
+                           color: white; padding: 15px 20px; border-radius: 15px; 
+                           box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); z-index: 1000;
+                           display: flex; align-items: center; gap: 10px; font-family: 'Orbitron', sans-serif;">
+                    <i class="fas fa-download" style="font-size: 24px;"></i>
+                    <div style="display: flex; flex-direction: column;">
+                        <span style="font-weight: bold;">Instale este aplicativo</span>
+                        <span style="font-size: 0.8rem; opacity: 0.9;">Adicione à tela inicial para uso offline</span>
+                    </div>
+                    <button id="installApp" style="background: rgba(255, 255, 255, 0.2); border: none; 
+                                                 color: white; padding: 8px 15px; border-radius: 8px; 
+                                                 cursor: pointer; margin-left: 10px;
+                                                 backdrop-filter: blur(5px);">
+                        Instalar
+                    </button>
+                    <button id="closeBanner" style="background: none; border: none; color: white; 
+                                                  font-size: 1.2rem; cursor: pointer; padding: 0 5px;">
+                        &times;
+                    </button>
+                </div>
+            `;
+            document.body.appendChild(installBanner);
+            
+            document.getElementById('installApp').addEventListener('click', async () => {
+                // Esconde o banner
+                installBanner.style.display = 'none';
+                
+                // Mostra o prompt de instalação
+                deferredPrompt.prompt();
+                
+                // Espera o usuário responder ao prompt
+                const { outcome } = await deferredPrompt.userChoice;
+                console.log(`Resultado da instalação: ${outcome}`);
+                
+                // Redefine a variável deferredPrompt, pois só pode ser usada uma vez
+                deferredPrompt = null;
+            });
+            
+            document.getElementById('closeBanner').addEventListener('click', () => {
+                installBanner.style.display = 'none';
+            });
+        });
+    </script>
+</body>
+</html> 
